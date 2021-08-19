@@ -198,28 +198,29 @@ function start_install() {
     echo
     green " =========================================="
     sleep 1s
-    sudo mkdir -p /var/www/helloToday
-    sudo bash -c "cat >/var/www/helloToday/index.html" <<EOF
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>Hello, today</title>
-</head>
-<body>
-    <div class="time" id="time"></div>
-</body>
-</html>
-<script>
-const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-let timeDiv = document.getElementById('time');
-setInterval(function () {
-    let date = new Date();
-    timeDiv.innerHTML = date.toLocaleDateString('en-US', options) + ' ' + date.toLocaleTimeString("en-US");
-}, 1000);
-</script>
-EOF
-    sudo chown -R acme:acme /var/www/helloToday
+    sudo mkdir -p /var/www/helloFriend
+    wget -N --no-check-certificate -q -O /var/www/helloFriend/index.html "https://git.io/J06d7"
+#     sudo bash -c "cat >/var/www/helloFriend/index.html" <<EOF
+# <!DOCTYPE html>
+# <html>
+# <head>
+# <meta charset="utf-8">
+# <title>Hello, today</title>
+# </head>
+# <body>
+#     <div class="time" id="time"></div>
+# </body>
+# </html>
+# <script>
+# const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+# let timeDiv = document.getElementById('time');
+# setInterval(function () {
+#     let date = new Date();
+#     timeDiv.innerHTML = date.toLocaleDateString('en-US', options) + ' ' + date.toLocaleTimeString("en-US");
+# }, 1000);
+# </script>
+# EOF
+    sudo chown -R acme:acme /var/www/helloFriend
     [ -s /etc/nginx/sites-enabled/default ] && sudo rm /etc/nginx/sites-enabled/default
     [ -s /etc/nginx/sites-enabled/$your_domain ] && sudo rm /etc/nginx/sites-enabled/$your_domain
     [ -s /etc/nginx/sites-available/$your_domain ] && sudo rm /etc/nginx/sites-available/$your_domain
@@ -230,7 +231,7 @@ server {
     server_name $your_domain;
 
     location / {
-        root /var/www/helloToday;
+        root /var/www/helloFriend;
     }
 
 }
