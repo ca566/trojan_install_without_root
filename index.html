@@ -1,0 +1,149 @@
+<html>
+
+<head>
+  <style>
+    body {
+      margin: 0px auto;
+      padding: 0px;
+      text-align: center;
+      width: 100%;
+      font-family: "Myriad Pro", "Helvetica Neue", Helvetica, Arial, Sans-Serif;
+      background-color: #f7f588;
+    }
+
+    #header {
+      width: 100%;
+      margin: 0px auto;
+      padding: 0px;
+      text-align: center;
+      height: 70px;
+      line-height: 70px;
+    }
+
+    #header li {
+      display: inline-block;
+      margin-right: 25px;
+      font-size: 17px;
+      color: #f18032;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #header #site_name {
+      text-align: left;
+      width: 680px;
+      font-size: 35px;
+      margin-left: 20px;
+    }
+
+    #home,
+    #about,
+    #contact {
+      margin: 50px 5%;
+      width: 90%;
+      height: 400px;
+      padding: 50px;
+      box-sizing: border-box;
+      background-color: #f18032;
+      border-radius: 10px;
+      color: white;
+    }
+
+    #home h1 {
+      font-size: 40px;
+    }
+
+    #home p {
+      font-size: 20px;
+    }
+
+    #about p {
+      font-size: 20px;
+    }
+
+    #contact input[type="text"] {
+      width: 250px;
+      height: 35px;
+      padding-left: 10px;
+      float: left;
+      margin-left: 80px;
+      border: none;
+    }
+
+    #contact textarea {
+      float: left;
+      width: 250px;
+      height: 35px;
+      margin-left: 20px;
+      border: none;
+      padding-left: 10px;
+      padding-top: 10px;
+    }
+
+    #contact input[type="submit"] {
+      float: left;
+      margin-left: 20px;
+      height: 35px;
+      width: 100px;
+      background: none;
+      color: white;
+      border: 1px solid white;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    function scrollto(div) {
+      $('html,body').animate(
+        {
+          scrollTop: $("#" + div).offset().top
+        }, 'slow');
+    }
+  </script>
+</head>
+
+<body>
+
+  <div id="header">
+    <li id="site_name">Hello Friend</li>
+    <li onclick="scrollto('home');">HOME</li>
+    <li onclick="scrollto('about');">ABOUT</li>
+    <li onclick="scrollto('contact');">CONTACT</li>
+  </div>
+
+  <div id="home">
+    <h1>Welcome to my<p>Amazing blog</p>
+    </h1>
+    <p>This small book contains a fairy tale,a story about many things.First of all,Innocence of Childhood and love.The
+      prince loves his roses,but felt disappointed by something the rose said.As doubt grows, he decides to explore
+      other planet.The little prince discovers that his rose is not the only one of its kind,there are thousands of them
+      in a garden,but then he realizes that his rose is special "because it is she that I have watered; because it is
+      she that I have put under the glass globe; because it is she that I have sheltered behind the screen".The fox
+      teaches the prince "It is only with the heart that one can see rightly;what is essential is invisible to the eye "
+    </p>
+  </div>
+
+  <div id="about">
+    <p>Seen from a slight distance, that would make a splendid spectacle. The movements of this army would be regulated
+      like those of the ballet in the opera. First would come the turn of the lamplighters of New Zealand and Australia.
+      Having set their lamps alight, these would go off to sleep. Next, the lamplighters of China and Siberia would
+      enter for their steps in the dance, and then they too would be waved back into the wings. After that would come
+      the turn of the lamplighters of Russia and the Indies; then those of Africa and Europe, then those of South
+      America; then those of South America; then those of North America. And never would they make a mistake in the
+      order of their entry upon the stage. It would be magnificent.</p>
+    <p>Only the man who was in charge of the single lamp at the North Pole, and his colleague who was responsible for
+      the single lamp at the South Pole-- only these two would live free from toil and care: they would be busy twice a
+      year.</p>
+  </div>
+
+  <div id="contact">
+    <h1>If you have any question or query you can fill
+      the form below</h1>
+    <input type="text" placeholder="Name">
+    <textarea placeholder="Message"></textarea>
+    <input type="submit" value="SEND">
+  </div>
+
+</body>
+
+</html>
