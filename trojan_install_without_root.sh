@@ -332,7 +332,7 @@ EOF
       echo
       green " ======================="
       read trojan_passwd
-      if [ -z "$trojanuser_passwd" ]; then
+      if [ -z "$trojan_passwd" ]; then
         trojan_passwd=$(cat /dev/urandom | head -1 | md5sum | head -c 8)
       fi
       sudo mv /usr/local/etc/trojan/config.json /usr/local/etc/trojan/config.json.bak
@@ -435,10 +435,19 @@ EOF
       sudo bash -c 'echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf'
       sudo sysctl -p
       sudo sysctl net.ipv4.tcp_congestion_control
+      green " ======================="
+      echo
+      blue "        请设置节点名称，直接回车将随机生成"
+      echo
+      green " ======================="
+      read node_name
+      if [ -z "$node_name" ]; then
+        node_name=$(cat /dev/urandom | head -1 | md5sum | head -c 8)
+      fi
       green " =========================================="
       echo
       green "       安装成功，复制下面的链接即可使用"
-      blue "       trojan://$trojan_passwd@$your_domain"
+      blue "       trojan://$trojan_passwd@$your_domain:443#$node_name"
       echo
       green " =========================================="
       sleep 1s
