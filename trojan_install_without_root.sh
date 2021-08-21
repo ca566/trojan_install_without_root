@@ -1,7 +1,6 @@
 #!/bin/bash
 # trojan-install.sh
 # font color
-# wget -N --no-check-certificate -q -O /tmp/trojan_install.sh "https://git.io/J0ToM" && chmod +x /tmp/trojan_install.sh && bash /tmp/trojan_install.sh
 blue() {
   echo -e "\033[34m\033[01m$1\033[0m"
 }
@@ -192,7 +191,7 @@ function start_install() {
   esac
   green " ======================="
   echo
-  red " 上下箭头间如有输出，输入0退出脚本，并检查域名解析和80端口（防火墙）"
+  red " 上下箭头间如有输出，输入0退出脚本，并检查域名解析"
   red " ↓↓↓↓↓↓↓↓↓↓↓↓↓↓"
   ping ${your_domain} -c 4 >/dev/null
   curl ${your_domain} >/dev/null
@@ -215,26 +214,26 @@ function start_install() {
     sleep 1s
     sudo mkdir -p /var/www/helloFriend
     sudo wget -N --no-check-certificate -q -O /var/www/helloFriend/index.html "https://git.io/J06d7"
-#     sudo bash -c "cat >/var/www/helloFriend/index.html" <<EOF
-# <!DOCTYPE html>
-# <html>
-# <head>
-# <meta charset="utf-8">
-# <title>Hello, today</title>
-# </head>
-# <body>
-#     <div class="time" id="time"></div>
-# </body>
-# </html>
-# <script>
-# const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-# let timeDiv = document.getElementById('time');
-# setInterval(function () {
-#     let date = new Date();
-#     timeDiv.innerHTML = date.toLocaleDateString('en-US', options) + ' ' + date.toLocaleTimeString("en-US");
-# }, 1000);
-# </script>
-# EOF
+    #     sudo bash -c "cat >/var/www/helloFriend/index.html" <<EOF
+    # <!DOCTYPE html>
+    # <html>
+    # <head>
+    # <meta charset="utf-8">
+    # <title>Hello, today</title>
+    # </head>
+    # <body>
+    #     <div class="time" id="time"></div>
+    # </body>
+    # </html>
+    # <script>
+    # const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    # let timeDiv = document.getElementById('time');
+    # setInterval(function () {
+    #     let date = new Date();
+    #     timeDiv.innerHTML = date.toLocaleDateString('en-US', options) + ' ' + date.toLocaleTimeString("en-US");
+    # }, 1000);
+    # </script>
+    # EOF
     sudo chown -R acme:acme /var/www/helloFriend
     [ -s /etc/nginx/sites-enabled/default ] && sudo rm /etc/nginx/sites-enabled/default
     [ -s /etc/nginx/sites-enabled/$your_domain ] && sudo rm /etc/nginx/sites-enabled/$your_domain
@@ -322,6 +321,19 @@ EOF
     esac
     sudo mkdir -p /var/www/acme-challenge
     sudo chown -R acme:certusers /var/www/acme-challenge
+    green " ======================="
+    echo
+    red " 上下箭头间如有输出，输入0退出脚本，并检查80端口（防火墙）"
+    red " ↓↓↓↓↓↓↓↓↓↓↓↓↓↓"
+    curl ${your_domain} >/dev/null
+    red " ↑↑↑↑↑↑↑↑↑↑↑↑↑↑"
+    green " ======================="
+    read -p "   请输入数字:" num
+    case "$num" in
+    0)
+      exit
+      ;;
+    esac
     sudo bash -c "su -l -s /bin/bash acme" <<EOF
 curl https://get.acme.sh | sh >/dev/null
 ~/.acme.sh/acme.sh --register-account -m my@example.com >/dev/null
