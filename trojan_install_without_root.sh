@@ -1,6 +1,7 @@
 #!/bin/bash
 # trojan-install.sh
 # font color
+# wget -N --no-check-certificate -q -O /tmp/trojan_install.sh "https://git.io/J0ToM" && chmod +x /tmp/trojan_install.sh && bash /tmp/trojan_install.sh
 blue() {
   echo -e "\033[34m\033[01m$1\033[0m"
 }
@@ -97,7 +98,7 @@ function create_user() {
     echo "trojanuser:$trojanuser_passwd" | sudo chpasswd
     green " ==============="
     echo
-    blue "       trojanuser 用户已存在，重设密码为：$trojanuser_passwd"
+    blue "       trojanuser 用户已存在，重设密码为："
     red "       $trojanuser_passwd"
     blue "       请牢记！！！待会儿要用到"
     echo
@@ -174,7 +175,7 @@ function start_install() {
   sudo $systemPackage install -y socat cron curl >/dev/null
   sudo systemctl start cron
   sudo systemctl enable cron
-  sudo $systemPackage install -y libcap2-bin xz-utils vim >/dev/null
+  sudo $systemPackage install -y libcap2-bin xz-utils vim iputils-ping >/dev/null
   sudo $systemPackage install -y nginx >/dev/null
   sudo systemctl enable nginx
   sudo systemctl stop nginx
@@ -189,6 +190,20 @@ function start_install() {
     exit
     ;;
   esac
+  green " ======================="
+  echo
+  red " 上下箭头间如有输出，输入0退出脚本，并检查域名解析和80端口（防火墙）"
+  red " ↓↓↓↓↓↓↓↓↓↓↓↓↓↓"
+  ping ${your_domain} -c 4 >/dev/null
+  curl ${your_domain} >/dev/null
+  red " ↑↑↑↑↑↑↑↑↑↑↑↑↑↑"
+  green " ======================="
+  read -p "   请输入数字:" num
+  case "$num" in
+  0)
+    exit
+    ;;
+  esac
   real_addr=$(ping ${your_domain} -c 1 | sed '1{s/[^(]*(//;s/).*//;q}')
   local_addr=$(curl ipv4.icanhazip.com)
   if [ $real_addr == $local_addr ]; then
@@ -199,7 +214,7 @@ function start_install() {
     green " =========================================="
     sleep 1s
     sudo mkdir -p /var/www/helloFriend
-    wget -N --no-check-certificate -q -O /var/www/helloFriend/index.html "https://git.io/J06d7"
+    sudo wget -N --no-check-certificate -q -O /var/www/helloFriend/index.html "https://git.io/J06d7"
 #     sudo bash -c "cat >/var/www/helloFriend/index.html" <<EOF
 # <!DOCTYPE html>
 # <html>
