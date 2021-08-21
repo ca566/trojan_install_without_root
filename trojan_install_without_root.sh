@@ -194,7 +194,6 @@ function start_install() {
   red " 上下箭头间如有输出，输入0退出脚本，并检查域名解析"
   red " ↓↓↓↓↓↓↓↓↓↓↓↓↓↓"
   ping ${your_domain} -c 4 >/dev/null
-  curl ${your_domain} >/dev/null
   red " ↑↑↑↑↑↑↑↑↑↑↑↑↑↑"
   green " ======================="
   read -p "   请输入数字:" num
@@ -325,7 +324,7 @@ EOF
     echo
     red " 上下箭头间如有输出，输入0退出脚本，并检查80端口（防火墙）"
     red " ↓↓↓↓↓↓↓↓↓↓↓↓↓↓"
-    curl ${your_domain} >/dev/null
+    curl ${your_domain} -sS >/dev/null
     red " ↑↑↑↑↑↑↑↑↑↑↑↑↑↑"
     green " ======================="
     read -p "   请输入数字:" num
