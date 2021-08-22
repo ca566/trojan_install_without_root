@@ -344,6 +344,7 @@ curl https://get.acme.sh | sh >/dev/null
 chown -R acme:certusers /etc/letsencrypt/live
 chmod -R 750 /etc/letsencrypt/live
 EOF
+    (sudo -u trojan crontab -l; echo "0 0 1 * * killall -s SIGUSR1 trojan") 2>&1 | grep -v "no crontab for trojan" | sort | uniq | crontab -u trojan -
     if sudo test -s /etc/letsencrypt/live/certificate.crt; then
       green " =========================================="
       echo
